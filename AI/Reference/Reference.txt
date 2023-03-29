@@ -3,6 +3,7 @@ Scene Text Detection: 글자 검출 모델, 간판 텍스트 추출용
     https://velog.io/@recoder/Scene-Text-Overview
     https://github.com/argman/EAST
     https://github.com/Neerajj9/Text-Detection-using-Yolo-Algorithm-in-keras-tensorflow
+    https://github.com/openvinotoolkit/training_extensions
 
   고려해볼 기술
     YOLO v5
