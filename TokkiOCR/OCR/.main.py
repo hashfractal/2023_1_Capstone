@@ -1,7 +1,8 @@
 from demo import *
-
+import cv2
 
 if __name__ == '__main__':
+	print( cv2.__version__)
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--image_folder', default="demo_image/", help='path to image_folder which contains text images')
 	parser.add_argument('--workers', type=int, help='number of data loading workers', default=4)
