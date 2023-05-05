@@ -1,7 +1,11 @@
 package SBWI.TokkiOCR;
 
+import org.python.core.PyFunction;
+import org.python.core.PyObject;
+import org.python.core.PyString;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.python.util.PythonInterpreter;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -13,13 +17,12 @@ import java.util.List;
 
 @SpringBootApplication
 public class TokkiOcrApplication {
-
 	public static ProcessBuilder inputCommand(String cmd) {
 		ProcessBuilder builder = new ProcessBuilder();
 		try {
 			if (System.getProperty("os.name").indexOf("Windows") > -1) {
-				builder.command("cmd.exe", "/c", cmd);
-				builder.directory(new File("./image"));
+					builder.command("cmd.exe", "/c", cmd);
+					builder.directory(new File("./image"));
 			} else {
 				builder.command("sh", "-c", cmd);
 				builder.directory(new File("/usr/local/bin/"));
@@ -114,16 +117,23 @@ public class TokkiOcrApplication {
 
 		return base64Img;
 	}
-	public static String OCR(String path, String name)
-	{
+	public static String OC(String base64) {
 		String res = "";
-		res = execCommandString(inputCommand("python pycmd.py --image64 " + imageToBase64(path, name)));
+		res = execCommandString(inputCommand("python pycmd.py --image64 " + base64));
 		return res;
+	}
+	public static String OCR(String base64) {
+		PythonInterpreter interpreter = new PythonInterpreter();
+		interpreter.execfile("./image/pycmd.py");
+
+		PyFunction func = (PyFunction) interpreter.get("predict", PyFunction.class);
+		PyObject pobj =  func.__call__(new PyString(base64));
+		return pobj.toString();
 	}
 
 	public static void main(String[] args) {
 		//SpringApplication.run(TokkiOcrApplication.class, args);
-		System.out.println(OCR(".\\image","test.png"));
+		System.out.println(OCR(imageToBase64("./image", "test.png")));
 
 	}
 }
