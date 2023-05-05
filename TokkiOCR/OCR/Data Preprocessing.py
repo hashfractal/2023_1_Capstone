@@ -2,7 +2,19 @@ import json
 import random
 import pickle
 import os
+import cv2
+import cv2_ext
 from tqdm import tqdm
+
+def imageMinimalize(group):
+	imageFiles = os.listdir(f'./dataset/{group}/')
+	
+	for i in imageFiles:
+		img = cv2_ext.imread(f'./dataset/{group}/{i}')
+		img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		img = cv2.resize(img, dsize=(200, 150), interpolation=cv2.INTER_LINEAR)
+		cv2_ext.imwrite(f'./dataset/{group}_mini/{i}', img)
+
 
 def createGt(group):
 	# Separate dataset - train, validation, test
@@ -31,8 +43,10 @@ def createGt(group):
 			f.write(i+'\n')
    
 if __name__ == '__main__':
-	print("start")
-	createGt('Test')
-	createGt('Train')
-	createGt('Validation')
+	# print("start")
+	# createGt('Test')
+	# createGt('Train')
+	# createGt('Validation')
+	# print("done")
+	imageMinimalize('Validation')
 	print("done")
