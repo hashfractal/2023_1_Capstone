@@ -251,6 +251,37 @@ class RawDataset(Dataset):
                 img = Image.new('L', (self.opt.imgW, self.opt.imgH))
 
         return (img, self.image_path_list[index])
+    
+class RawOneDataset(Dataset):
+
+    def __init__(self, pillowimg, opt):
+        self.opt = opt
+        self.image_path_list = []
+        self.image_path_list.append(pillowimg)
+
+        self.image_path_list = natsorted(self.image_path_list)
+        self.nSamples = len(self.image_path_list)
+
+    def __len__(self):
+        return self.nSamples
+
+    def __getitem__(self, index):
+
+        try:
+            if self.opt.rgb:
+                img = self.image_path_list[0].convert('RGB')  # for color image
+            else:
+                img = self.image_path_list[0].convert('L')
+
+        except IOError:
+            print(f'Corrupted image for {index}')
+            # make dummy image and dummy label for corrupted image.
+            if self.opt.rgb:
+                img = Image.new('RGB', (self.opt.imgW, self.opt.imgH))
+            else:
+                img = Image.new('L', (self.opt.imgW, self.opt.imgH))
+
+        return (img, self.image_path_list[index])
 
 
 class ResizeNormalize(object):

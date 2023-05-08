@@ -93,10 +93,10 @@ def demo(opt):
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--image_folder', required=True, help='path to image_folder which contains text images')
+	parser.add_argument('--image_folder', default="demo_image/", help='path to image_folder which contains text images')
 	parser.add_argument('--workers', type=int, help='number of data loading workers', default=4)
 	parser.add_argument('--batch_size', type=int, default=192, help='input batch size')
-	parser.add_argument('--saved_model', required=True, help="path to saved_model to evaluation")
+	parser.add_argument('--saved_model', default="TPS-ResNet-BiLSTM-Attn.pth", help="path to saved_model to evaluation")
 	""" Data processing """
 	parser.add_argument('--batch_max_length', type=int, default=25, help='maximum-label-length')
 	parser.add_argument('--imgH', type=int, default=32, help='the height of the input image')
@@ -106,10 +106,10 @@ if __name__ == '__main__':
 	parser.add_argument('--sensitive', action='store_true', help='for sensitive character mode')
 	parser.add_argument('--PAD', action='store_true', help='whether to keep ratio then pad for image resize')
 	""" Model Architecture """
-	parser.add_argument('--Transformation', type=str, required=True, help='Transformation stage. None|TPS')
-	parser.add_argument('--FeatureExtraction', type=str, required=True, help='FeatureExtraction stage. VGG|RCNN|ResNet')
-	parser.add_argument('--SequenceModeling', type=str, required=True, help='SequenceModeling stage. None|BiLSTM')
-	parser.add_argument('--Prediction', type=str, required=True, help='Prediction stage. CTC|Attn')
+	parser.add_argument('--Transformation', type=str, default="TPS", help='Transformation stage. None|TPS')
+	parser.add_argument('--FeatureExtraction', type=str, default="ResNet", help='FeatureExtraction stage. VGG|RCNN|ResNet')
+	parser.add_argument('--SequenceModeling', type=str, default="BiLSTM", help='SequenceModeling stage. None|BiLSTM')
+	parser.add_argument('--Prediction', type=str, default="Attn", help='Prediction stage. CTC|Attn')
 	parser.add_argument('--num_fiducial', type=int, default=20, help='number of fiducial points of TPS-STN')
 	parser.add_argument('--input_channel', type=int, default=1, help='the number of input channel of Feature extractor')
 	parser.add_argument('--output_channel', type=int, default=512,
@@ -122,8 +122,8 @@ if __name__ == '__main__':
 	if opt.sensitive:
 		opt.character = string.printable[:-6]  # same with ASTER setting (use 94 char).
 
-	cudnn.benchmark = True
-	cudnn.deterministic = True
+	# cudnn.benchmark = True
+	# cudnn.deterministic = True
 	opt.num_gpu = torch.cuda.device_count()
 
 	demo(opt)

@@ -132,8 +132,7 @@ public class TokkiOcrApplication {
 	}
 
 	public static void main(String[] args) {
-		//SpringApplication.run(TokkiOcrApplication.class, args);
-		System.out.println(OCR(imageToBase64("./image", "test.png")));
+		System.out.println(OCR(imageToBase64("./image", "test.jpg")));
 
 	}
 }
