@@ -1,1 +1,1 @@
-import OCR
+print("s")
