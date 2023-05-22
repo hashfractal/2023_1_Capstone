@@ -1,0 +1,159 @@
+{
+	"version": "V2",
+	"requestId": "b07e91c7-2984-4871-b6d5-130cea736cb1",
+	"timestamp": 1684757059264,
+	"images": [
+		{
+			"uid": "960015a10dd846cfa45774926f03acb9",
+			"name": "demo",
+			"inferResult": "SUCCESS",
+			"message": "SUCCESS",
+			"validationResult": {
+				"result": "NO_REQUESTED"
+			},
+			"convertedImageInfo": {
+				"width": 771,
+				"height": 329,
+				"pageIndex": 0,
+				"longImage": false
+			},
+			"fields": [
+				{
+					"valueType": "ALL",
+					"boundingPoly": {
+						"vertices": [
+							{
+								"x": 24.0,
+								"y": 22.0
+							},
+							{
+								"x": 564.0,
+								"y": 22.0
+							},
+							{
+								"x": 564.0,
+								"y": 184.0
+							},
+							{
+								"x": 24.0,
+								"y": 184.0
+							}
+						]
+					},
+					"inferText": "OK부동",
+					"inferConfidence": 1.0,
+					"type": "NORMAL",
+					"lineBreak": false
+				},
+				{
+					"valueType": "ALL",
+					"boundingPoly": {
+						"vertices": [
+							{
+								"x": 601.0,
+								"y": 25.0
+							},
+							{
+								"x": 770.0,
+								"y": 25.0
+							},
+							{
+								"x": 770.0,
+								"y": 193.0
+							},
+							{
+								"x": 601.0,
+								"y": 193.0
+							}
+						]
+					},
+					"inferText": "산",
+					"inferConfidence": 0.9999,
+					"type": "NORMAL",
+					"lineBreak": true
+				},
+				{
+					"valueType": "ALL",
+					"boundingPoly": {
+						"vertices": [
+							{
+								"x": 240.0,
+								"y": 206.0
+							},
+							{
+								"x": 568.0,
+								"y": 206.0
+							},
+							{
+								"x": 568.0,
+								"y": 251.0
+							},
+							{
+								"x": 240.0,
+								"y": 251.0
+							}
+						]
+					},
+					"inferText": "공인중개사사무소",
+					"inferConfidence": 0.9999,
+					"type": "NORMAL",
+					"lineBreak": true
+				},
+				{
+					"valueType": "ALL",
+					"boundingPoly": {
+						"vertices": [
+							{
+								"x": 81.0,
+								"y": 262.0
+							},
+							{
+								"x": 376.0,
+								"y": 259.0
+							},
+							{
+								"x": 377.0,
+								"y": 321.0
+							},
+							{
+								"x": 82.0,
+								"y": 325.0
+							}
+						]
+					},
+					"inferText": "483-8113",
+					"inferConfidence": 0.9997,
+					"type": "NORMAL",
+					"lineBreak": false
+				},
+				{
+					"valueType": "ALL",
+					"boundingPoly": {
+						"vertices": [
+							{
+								"x": 409.0,
+								"y": 260.0
+							},
+							{
+								"x": 701.0,
+								"y": 260.0
+							},
+							{
+								"x": 701.0,
+								"y": 322.0
+							},
+							{
+								"x": 409.0,
+								"y": 322.0
+							}
+						]
+					},
+					"inferText": "483-8717",
+					"inferConfidence": 0.9994,
+					"type": "NORMAL",
+					"lineBreak": true
+				}
+			]
+		}
+	]
+}
