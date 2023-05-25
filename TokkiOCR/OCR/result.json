@@ -1,0 +1,78 @@
+{
+	"version": "V2",
+	"requestId": "3c80a938-e0e0-4c31-b931-f545c03466e6",
+	"timestamp": 1685001381915,
+	"images": [
+		{
+			"uid": "b278a24e42d941d4a352a3be1b3e7e9a",
+			"name": "demo",
+			"inferResult": "SUCCESS",
+			"message": "SUCCESS",
+			"validationResult": {
+				"result": "NO_REQUESTED"
+			},
+			"convertedImageInfo": {
+				"width": 1440,
+				"height": 2240,
+				"pageIndex": 0,
+				"longImage": false
+			},
+			"fields": [
+				{
+					"valueType": "ALL",
+					"boundingPoly": {
+						"vertices": [
+							{
+								"x": 382.0,
+								"y": 998.0
+							},
+							{
+								"x": 519.0,
+								"y": 1003.0
+							},
+							{
+								"x": 518.0,
+								"y": 1032.0
+							},
+							{
+								"x": 381.0,
+								"y": 1028.0
+							}
+						]
+					},
+					"inferText": "ABMET",
+					"inferConfidence": 0.8253,
+					"type": "NORMAL",
+					"lineBreak": false
+				},
+				{
+					"valueType": "ALL",
+					"boundingPoly": {
+						"vertices": [
+							{
+								"x": 595.0,
+								"y": 926.0
+							},
+							{
+								"x": 1018.0,
+								"y": 934.0
+							},
+							{
+								"x": 1015.0,
+								"y": 1057.0
+							},
+							{
+								"x": 592.0,
+								"y": 1050.0
+							}
+						]
+					},
+					"inferText": "커피상회",
+					"inferConfidence": 0.9992,
+					"type": "NORMAL",
+					"lineBreak": true
+				}
+			]
+		}
+	]
+}
