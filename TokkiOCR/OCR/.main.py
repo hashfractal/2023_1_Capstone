@@ -8,4 +8,4 @@ app = Flask(__name__)
 
 
 if __name__ == "__main__":
-    print(OCR.OCR(Image.open('B:\\Work Space B\\2023_1_Capstone\\TokkiOCR\\OCR\\demo_image\\demo_11.jpg')))
+    print(1e+5)

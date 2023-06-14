@@ -39,52 +39,61 @@ public class PlaceController {
 //        File dest = new File("C:\\Users\\cyr50\\OneDrive\\바탕 화면\\사진저장" + File.separator +image.getOriginalFilename());
 //        image.transferTo(dest);
 
-        List<PlaceDTO> placeDTOList= new ArrayList<>();
+        List<PlaceDTO> placeDTOList = new ArrayList<>();
         List<Double> similarity = new ArrayList<>();
         PlaceDTO result= null;
 
 
-        String placename = restTemplateService.ocrRestTemplate(placeService.endcodingBase64(image));
-        System.out.println(placename);
-        //placename 이상할시 예외사항 작성해야함
 
+        String placename = "커피상회";//restTemplateService.ocrRestTemplate(placeService.endcodingBase64(image));
+        System.out.println(placename);
+
+        Double lat1 = 36.33554107793125;
+        Double lng1 = 127.44517480147046;
 
         try {
-            placeDTOList = placeService.latlngPlaceList(lat, lng);
 
-            for (int i = 0; i < placeDTOList.size(); i++) {
-                similarity.add(placeService.jacad(placeDTOList.get(i).getName(), placename));
+            placeDTOList = placeService.latlngPlaceList(lat1, lng1);
+
+            for (PlaceDTO placeDTO : placeDTOList) {
+                similarity.add(placeService.jacad(placeDTO.getName(), placename));
             }
 
-            double similarityMax = Collections.max(similarity);
+            Double similarityMax = Collections.max(similarity);
 
-            if(similarityMax != (double) 0.0){
+            if(similarityMax != 0.0){
                 result = placeDTOList.get(similarity.indexOf(similarityMax));
             }
 
+        }catch (NullPointerException e){
+            System.out.println("NullPointerException 오류");
         } catch (NoSuchElementException e) {
             System.out.println("DB에 없는 정보입니다.");
         }
 
         try {
             if(result == null) {
-                List<PlaceDTO> placelist = googleMapService.neardySearch(lat, lng);
-                placeService.saveAll(placelist);
+                //List<PlaceDTO> placelist = googleMapService.neardySearch(lat, lng);
+                //System.out.println(placelist);
+                //placeService.saveAll(placelist);
 
-                placeDTOList = placeService.latlngPlaceList(lat, lng);
+                placeDTOList = placeService.latlngPlaceList(lat1, lng1);
 
-                for(int i =0; i<placeDTOList.size(); i++){
-                    similarity.add(placeService.jacad(placeDTOList.get(i).getName(), placename));
+                for (PlaceDTO placeDTO : placeDTOList) {
+                    similarity.add(placeService.jacad(placeDTO.getName(), placename));
                 }
 
-                double similarityMax = Collections.max(similarity);
+                Double similarityMax = Collections.max(similarity);
 
-                if(similarityMax != (double) 0.0){
+                if(similarityMax != 0.0){
                     result = placeDTOList.get(similarity.indexOf(similarityMax));
                 }
             }
         }catch (NullPointerException e){
-            System.out.println("무슨오류인가.");
+            System.out.println("NullPointerException 오류");
+        }
+        catch (NoSuchElementException e1){
+            System.out.println("NoSuchElementException 오류");
         }
 
 

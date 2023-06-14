@@ -18,8 +18,10 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import static java.lang.Math.*;
+import static org.openkoreantext.processor.OpenKoreanTextProcessorJava.*;
 
 @Service
 public class PlaceService {
@@ -57,16 +59,19 @@ public class PlaceService {
 
         LngLatRange lngLatRange = rangeCalculation(lat, lng); // 위도, 경도 범위 계산 코드(10m)
 
+        System.out.println("minlat : "+lngLatRange.getMinLat() +"maxlat : "+lngLatRange.getMaxLat());
+        System.out.println("minlng : "+lngLatRange.getMinLng() +"maxlng : "+lngLatRange.getMaxLng());
+
         return placeRepository.findByLatBetweenAndLngBetween(lngLatRange.getMinLat(), lngLatRange.getMaxLat(),
-                lngLatRange.getMinLng(), lngLatRange.getMaxLng());
+                lngLatRange.getMinLng(), lngLatRange.getMaxLng());//jpa
     }
 
 
     public LngLatRange rangeCalculation(Double lat, Double lng){
 
-         final double EARTH_RADIUS = 6371.01 * 1000; // 지구의 반지름(미터 단위)
+        final double EARTH_RADIUS = 6371.01 * 1000; // 지구의 반지름(미터 단위)
 
-        double radius = 15; // 반경 (미터 단위)
+        double radius = 20; // 반경 (미터 단위)
 
         double latRange = toDegrees(radius / EARTH_RADIUS); // 위도 범위 계산
         double lngRange = toDegrees(radius / (EARTH_RADIUS * cos(toRadians(lat)))); // 경도 범위 계산
@@ -79,7 +84,6 @@ public class PlaceService {
         lngLatRange.setMaxLng(lng + lngRange); // 최대 경도 계산
 
         return lngLatRange;
-
     }
 
     public String endcodingBase64(MultipartFile image) throws IOException {
@@ -96,12 +100,15 @@ public class PlaceService {
     public String NoSpacing(String input){ //공백제거
         input = input.replaceAll("\\s", "");
         return input;
+       // return input.replace(" ", "");
     }
+
+
 
     public double jacad(String dbtext, String ocrresult){ //ocrresult이 AI모델을 통해 받아온 값이라고 가정
 
-        Set<String> set1 = new HashSet<>();
-        Set<String> set2 = new HashSet<>();
+        Set<String> set1 = new HashSet<>(15);
+        Set<String> set2 = new HashSet<>(15);
 
         if (containsOnlyEng(NoSpacing(ocrresult))){ //영어로만 이루어져있을때
             dbtext = dbtext.toLowerCase();
@@ -118,14 +125,14 @@ public class PlaceService {
             }
 
         } else{
-            CharSequence normalized1 = OpenKoreanTextProcessorJava.normalize(dbtext);
-            CharSequence normalized2 = OpenKoreanTextProcessorJava.normalize(ocrresult);
-            Seq<KoreanTokenizer.KoreanToken> tokens1 = OpenKoreanTextProcessorJava.tokenize(normalized1);
-            Seq<KoreanTokenizer.KoreanToken> tokens2 = OpenKoreanTextProcessorJava.tokenize(normalized2);
+            CharSequence normalized1 = normalize(dbtext);
+            CharSequence normalized2 = normalize(ocrresult);
+            Seq<KoreanTokenizer.KoreanToken> tokens1 = tokenize(normalized1);
+            Seq<KoreanTokenizer.KoreanToken> tokens2 = tokenize(normalized2);
 
 
-            set1.addAll(OpenKoreanTextProcessorJava.tokensToJavaStringList(tokens1));
-            set2.addAll(OpenKoreanTextProcessorJava.tokensToJavaStringList(tokens2));
+            set1.addAll(tokensToJavaStringList(tokens1));
+            set2.addAll(tokensToJavaStringList(tokens2));
         }
 
         System.out.println("jacad set 1 : " + set1);

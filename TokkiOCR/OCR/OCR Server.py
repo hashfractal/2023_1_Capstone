@@ -10,7 +10,9 @@ app = Flask(__name__)
 def nocr():
     params = request.get_data().decode("utf-8")
     img = Image.open(BytesIO(base64.b64decode(str(params))))
-    return NOCR.NOCR(img)
+    result = NOCR.NOCR(img)
+    print(result)
+    return result
     
 def ocr():
     params = request.get_data().decode("utf-8")

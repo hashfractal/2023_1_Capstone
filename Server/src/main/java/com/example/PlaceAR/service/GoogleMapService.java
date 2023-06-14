@@ -32,6 +32,7 @@ public class GoogleMapService {
     public List<PlaceDTO> neardySearch(double lat, double lng) throws IOException, InterruptedException, ApiException {
 
         LatLng location = new LatLng(lat, lng);
+
         PlacesSearchResponse response;
         String nextPageToken = null;
         List<PlaceDTO> DTOlist = new ArrayList<>();
@@ -41,7 +42,7 @@ public class GoogleMapService {
 
             if(nextPageToken == null){
                 response = PlacesApi.nearbySearchQuery(context,location)
-                        .radius(100)
+                        .radius(100)//반경
                         .language("ko")
                         .await();
             }else{
@@ -93,6 +94,5 @@ public class GoogleMapService {
             return null;
         }
     }
-
 
 }
